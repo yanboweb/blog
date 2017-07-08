@@ -19,7 +19,7 @@
 - PhotoShop/Paint.net/Fireworks/GIMP/Sketch
 ## 开发工具
 ### 编辑器和IDE
-- VIM/Sublime Text2
+- VIM/Sublime Text3
 - Notepad++/EditPlus
 - WebStorm
 - Emacs EmacsWiki
