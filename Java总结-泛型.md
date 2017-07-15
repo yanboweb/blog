@@ -1,6 +1,7 @@
 
+
 ## 一、为什么需要泛型
-### 示例代码：
+### 示例代码1：
 
 ``` java
 public class GenericTest {
@@ -44,7 +45,7 @@ java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.Stri
 ## 二、什么是泛型？
 泛型，即“参数化类型”。一提到参数，最熟悉的就是定义方法时有形参，然后调用此方法时传递实参。那么参数化类型怎么理解呢？顾名思义，就是将类型由原来的具体的类型参数化，类似于方法中的变量参数，此时类型也定义成参数形式（可以称之为类型形参），然后在使用/调用时传入具体的类型（类型实参）。
 
-### 改写上面的代码1
+### 示例代码2：
 
 ``` java
 public class GenericTest {
@@ -67,9 +68,7 @@ public class GenericTest {
 控制台打印结果
 
 > Exception in thread "main" java.lang.Error: Unresolved compilation problem: 
-	The method add(int, String) in the type List<String> is not applicable for the arguments (int)
-
-	at com.ys.test.GenericTest.main(GenericTest.java:41)
+	The method add(int, String) in the type List<String> is not applicable for the arguments (int)	at com.ys.test.GenericTest.main(GenericTest.java:41)
 
 采用泛型写法后，在//1注释处想加入一个Integer类型的对象时会出现编译错误，通过List<String>，直接限定了list集合中只能含有String类型的元素，从而在//2注释处无须进行强制类型转换，因为此时，集合能够记住元素的类型信息，编译器已经能够确认它是String类型了。
 
@@ -162,6 +161,7 @@ public class ArrayList<E> extends AbstractList<E>
 从上面的内容中，大家已经明白了泛型的具体运作过程。也知道了接口、类和方法也都可以使用泛型去定义，以及相应的使用。是的，在具体使用时，可以分为泛型接口、泛型类和泛型方法。
 
 自定义泛型接口、泛型类和泛型方法与上述Java源码中的List、ArrayList类似。如下，我们看一个最简单的泛型类和方法定义：
+### 示例代码3：
 
 ``` java
 public class GenericTest {
@@ -193,6 +193,7 @@ class Box<T> {
 }
 ```
 在泛型接口、泛型类和泛型方法的定义过程中，我们常见的如T、E、K、V等形式的参数常用于表示泛型形参，由于接收来自外部使用时候传入的类型实参。那么对于不同传入的类型实参，生成的相应对象实例的类型是不是一样的呢？
+### 示例代码4：
 
 ``` java
 public class GenericTest {
@@ -226,6 +227,7 @@ public class GenericTest {
 接着上面的结论，我们知道，Box<Number>和Box<Integer>实际上都是Box类型，现在需要继续探讨一个问题，那么在逻辑上，类似于Box<Number>和Box<Integer>是否可以看成具有父子关系的泛型类型呢？
 
 为了弄清这个问题，我们继续看下下面这个例子:
+### 示例代码5：
 
 ``` java
 public class GenericTest {
@@ -247,7 +249,8 @@ public class GenericTest {
         System.out.println("data :" + data.getData());
     }
 
-}```
+}
+```
 
 控制台打印结果
 
@@ -255,7 +258,7 @@ public class GenericTest {
 	The method getData(Box<Number>) in the type GenericTest is not applicable for the arguments (Box<Integer>)	at com.ys.test.GenericTest.main(GenericTest.java:72)
 
 我们发现，在代码//1处出现了错误提示信息：The method getData(Box<Number>) in the t ype GenericTest is not applicable for the arguments (Box<Integer>)。显然，通过提示信息，我们知道Box<Number>在逻辑上不能视为Box<Integer>的父类。那么，原因何在呢？
-
+### 示例代码6：
 ``` java
 public class GenericTest {
 
@@ -311,7 +314,7 @@ class Box<T> {
 好，那我们回过头来继续看“类型通配符”中的第一个例子，我们知道其具体的错误提示的深层次原因了。那么如何解决呢？总部能再定义一个新的函数吧。这和Java中的多态理念显然是违背的，因此，我们需要一个在逻辑上可以用来表示同时是Box<Integer>和Box<Number>的父类的一个引用类型，由此，类型通配符应运而生。
 
 类型通配符一般是使用 ? 代替具体的类型实参。注意了，此处是类型实参，而不是类型形参！且Box<?>在逻辑上是Box<Integer>、Box<Number>...等所有Box<具体类型实参>的父类。由此，我们依然可以定义泛型方法，来完成此类需求。
-
+### 示例代码7：
 ``` java
 public class GenericTest {
 
@@ -342,7 +345,7 @@ data :2
 有时候，我们还可能听到类型通配符上限和类型通配符下限。具体有是怎么样的呢？
 
 在上面的例子中，如果需要定义一个功能类似于getData()的方法，但对类型实参又有进一步的限制：只能是Number类及其子类。此时，需要用到类型通配符上限。
-
+### 示例代码8：
 ``` java
 public class GenericTest {
 
